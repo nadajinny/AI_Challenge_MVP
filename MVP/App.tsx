@@ -12,6 +12,7 @@ import {
   StyleSheet,
   Platform,
   KeyboardAvoidingView,
+  StatusBar,
 } from 'react-native';
 
 // ---------------------------------
@@ -530,6 +531,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F6F7FB" />
       <View style={styles.tabBar}>
         <TabButton label="기록" active={tab === 'log'} onPress={() => setTab('log')} />
         <TabButton label="피드백" active={tab === 'feedback'} onPress={() => setTab('feedback')} />
@@ -566,79 +568,160 @@ const TabButton = ({ label, active, onPress }: { label: string; active: boolean;
 // Styles
 // ---------------------------------
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#0B1020' },
-  tabBar: { flexDirection: 'row', paddingHorizontal: 12, paddingTop: Platform.OS === 'android' ? 12 : 0 },
-  tabBtn: { flex: 1, paddingVertical: 12, borderRadius: 12, alignItems: 'center', marginHorizontal: 4, backgroundColor: 'rgba(255,255,255,0.06)' },
-  tabBtnActive: { backgroundColor: 'rgba(255,255,255,0.15)' },
-  tabText: { color: 'rgba(255,255,255,0.7)', fontWeight: '600', letterSpacing: 0.3 },
-  tabTextActive: { color: '#fff' },
-  divider: { height: 1, backgroundColor: 'rgba(255,255,255,0.08)', marginTop: 8 },
+  // 베이스
+  safe: { flex: 1, backgroundColor: '#F6F7FB' }, // 밝은 배경
+  tabBar: {
+    flexDirection: 'row',
+    paddingHorizontal: 12,
+    paddingTop: Platform.OS === 'android' ? 12 : 0,
+  },
+  tabBtn: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginHorizontal: 4,
+    backgroundColor: '#EDEFF7', // 연한 회청색
+  },
+  tabBtnActive: { backgroundColor: '#DDE6FF' }, // 활성 탭은 좀 더 밝게
+  tabText: { color: '#51607A', fontWeight: '600', letterSpacing: 0.3 },
+  tabTextActive: { color: '#1F2A44' }, // 더 진한 남청색
+  divider: { height: 1, backgroundColor: '#E6EAF4', marginTop: 8 },
 
+  // 공통 레이아웃/텍스트
   screenPad: { padding: 16 },
-  title: { color: '#fff', fontSize: 22, fontWeight: '800', letterSpacing: 0.3 },
-  sectionTitle: { color: 'rgba(255,255,255,0.9)', fontSize: 15, fontWeight: '700' },
+  title: { color: '#1F2A44', fontSize: 22, fontWeight: '800', letterSpacing: 0.3 },
+  sectionTitle: { color: '#2A3B5F', fontSize: 15, fontWeight: '700' },
 
-  textArea: { minHeight: 110, borderRadius: 14, padding: 12, backgroundColor: 'rgba(255,255,255,0.06)', color: '#fff', textAlignVertical: 'top' },
-  input: { height: 44, borderRadius: 12, paddingHorizontal: 12, backgroundColor: 'rgba(255,255,255,0.06)', color: '#fff' },
+  // 입력 컴포넌트
+  textArea: {
+    minHeight: 110,
+    borderRadius: 14,
+    padding: 12,
+    backgroundColor: '#FFFFFF',
+    color: '#1F2A44',
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    borderColor: '#E6EAF4',
+  },
+  input: {
+    height: 44,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    backgroundColor: '#FFFFFF',
+    color: '#1F2A44',
+    borderWidth: 1,
+    borderColor: '#E6EAF4',
+  },
 
+  // 배열/정렬
   rowWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   rowJustify: { marginTop: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
 
+  // 칩
   chip: { paddingVertical: 8, paddingHorizontal: 12, borderRadius: 999, borderWidth: 1 },
-  chipOn: { backgroundColor: 'rgba(255,255,255,0.14)', borderColor: 'rgba(255,255,255,0.25)' },
-  chipOff: { backgroundColor: 'transparent', borderColor: 'rgba(255,255,255,0.18)' },
+  chipOn: { backgroundColor: '#E8EEFF', borderColor: '#D6E0FF' },
+  chipOff: { backgroundColor: '#F3F6FD', borderColor: 'rgba(0,0,0,0.05)' },
   chipText: { fontSize: 13, fontWeight: '700', letterSpacing: 0.2 },
-  chipTextOn: { color: '#fff' },
-  chipTextOff: { color: 'rgba(255,255,255,0.7)' },
+  chipTextOn: { color: '#2A3B5F' },
+  chipTextOff: { color: '#51607A' },
 
-  primaryBtn: { marginTop: 18, backgroundColor: '#4C82FB', paddingVertical: 12, borderRadius: 14, alignItems: 'center' },
-  primaryBtnText: { color: '#fff', fontSize: 16, fontWeight: '800' },
-  secondaryBtn: { marginTop: 18, paddingVertical: 10, borderRadius: 12, alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.12)' },
-  secondaryBtnText: { color: '#fff', fontWeight: '700' },
+  // 버튼
+  primaryBtn: { marginTop: 18, backgroundColor: '#6C8EF5', paddingVertical: 12, borderRadius: 14, alignItems: 'center' },
+  primaryBtnText: { color: '#FFFFFF', fontSize: 16, fontWeight: '800' },
+  secondaryBtn: { marginTop: 18, paddingVertical: 10, borderRadius: 12, alignItems: 'center', backgroundColor: '#EEF2FF' },
+  secondaryBtnText: { color: '#2A3B5F', fontWeight: '700' },
 
-  card: { marginTop: 16, borderRadius: 16, padding: 14, backgroundColor: 'rgba(255,255,255,0.06)' },
-  cardTitle: { color: '#fff', fontWeight: '800', fontSize: 16 },
-  cardSubtitle: { color: 'rgba(255,255,255,0.8)', fontWeight: '700', fontSize: 13 },
+  // 카드
+  card: {
+    marginTop: 16,
+    borderRadius: 16,
+    padding: 14,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E6EAF4',
+  },
+  cardTitle: { color: '#1F2A44', fontWeight: '800', fontSize: 16 },
+  cardSubtitle: { color: '#51607A', fontWeight: '700', fontSize: 13 },
 
-  progressWrap: { marginTop: 12, height: 22, borderRadius: 999, overflow: 'hidden', position: 'relative', backgroundColor: 'rgba(255,255,255,0.08)', justifyContent: 'center' },
+  // 프로그레스 바
+  progressWrap: {
+    marginTop: 12,
+    height: 22,
+    borderRadius: 999,
+    overflow: 'hidden',
+    position: 'relative',
+    backgroundColor: '#E7ECF7',
+    justifyContent: 'center',
+  },
   progressBarBg: { ...StyleSheet.absoluteFillObject },
-  progressBarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, backgroundColor: '#4C82FB' },
-  progressText: { color: '#fff', textAlign: 'center', fontWeight: '800', fontSize: 12 },
-  badge: { alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 999, backgroundColor: 'rgba(255,255,255,0.12)', color: '#fff', fontWeight: '800', letterSpacing: 0.2, overflow: 'hidden' },
-  resultMsg: { marginTop: 8, color: 'rgba(255,255,255,0.9)', lineHeight: 20 },
-  guideText: { marginTop: 10, color: '#D8E1FF', fontWeight: '700' },
-  link: { color: '#9EB7FF', fontWeight: '800' },
+  progressBarFill: { position: 'absolute', top: 0, bottom: 0, left: 0, backgroundColor: '#6C8EF5' },
+  progressText: { color: '#1F2A44', textAlign: 'center', fontWeight: '800', fontSize: 12 },
+
+  // 배지/메시지
+  badge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: '#EEF2FF',
+    color: '#2A3B5F',
+    fontWeight: '800',
+    letterSpacing: 0.2,
+    overflow: 'hidden',
+  },
+  resultMsg: { marginTop: 8, color: '#2A3B5F', lineHeight: 20 },
+  guideText: { marginTop: 10, color: '#2A3B5F', fontWeight: '700' },
+  link: { color: '#5C7CFA', fontWeight: '800' },
 
   // 커뮤니티
-  postCard: { marginTop: 14, padding: 14, borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.06)' },
-  postMeta: { color: 'rgba(255,255,255,0.6)', fontSize: 12, marginBottom: 6 },
-  postContent: { color: '#fff', fontSize: 15, lineHeight: 22 },
-  postBtn: { marginTop: 10, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.12)' },
-  postBtnText: { color: '#fff', fontWeight: '700', fontSize: 13 },
+  postCard: {
+    marginTop: 14,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E6EAF4',
+  },
+  postMeta: { color: '#6B778C', fontSize: 12, marginBottom: 6 },
+  postContent: { color: '#1F2A44', fontSize: 15, lineHeight: 22 },
+  postBtn: { marginTop: 10, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 10, backgroundColor: '#EEF2FF' },
+  postBtnText: { color: '#2A3B5F', fontWeight: '700', fontSize: 13 },
+
+  // 댓글
   commentRow: { flexDirection: 'row', gap: 8, alignItems: 'center', marginTop: 10 },
-  commentInput: { flex: 1, height: 38, borderRadius: 12, paddingHorizontal: 10, backgroundColor: 'rgba(255,255,255,0.06)', color: '#fff' },
-  commentSend: { paddingHorizontal: 12, height: 38, borderRadius: 12, justifyContent: 'center', backgroundColor: '#4C82FB' },
-  commentSendText: { color: '#fff', fontWeight: '800' },
-  commentItem: { marginTop: 6, color: 'rgba(255,255,255,0.85)' },
-  moreText: { marginTop: 6, color: 'rgba(255,255,255,0.6)', fontSize: 12 },
+  commentInput: {
+    flex: 1,
+    height: 38,
+    borderRadius: 12,
+    paddingHorizontal: 10,
+    backgroundColor: '#FFFFFF',
+    color: '#1F2A44',
+    borderWidth: 1,
+    borderColor: '#E6EAF4',
+  },
+  commentSend: { paddingHorizontal: 12, height: 38, borderRadius: 12, justifyContent: 'center', backgroundColor: '#6C8EF5' },
+  commentSendText: { color: '#FFFFFF', fontWeight: '800' },
+  commentItem: { marginTop: 6, color: '#2A3B5F' },
+  moreText: { marginTop: 6, color: '#6B778C', fontSize: 12 },
 
   // 모달
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)', justifyContent: 'flex-end' },
-  modalCard: { padding: 16, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: '#11172C' },
-  modalTitle: { color: '#fff', fontWeight: '800', fontSize: 16, marginBottom: 8 },
-  modalItem: { color: 'rgba(255,255,255,0.9)', marginTop: 6 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.25)', justifyContent: 'flex-end' },
+  modalCard: { padding: 16, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: '#FFFFFF', borderTopWidth: 1, borderColor: '#E6EAF4' },
+  modalTitle: { color: '#1F2A44', fontWeight: '800', fontSize: 16, marginBottom: 8 },
+  modalItem: { color: '#2A3B5F', marginTop: 6 },
 
-  // Feedback screen 누락 스타일
-  feedbackLine: { marginTop: 6, color: '#fff', fontWeight: '700' },
+  // 피드백 화면 누락 스타일
+  feedbackLine: { marginTop: 6, color: '#1F2A44', fontWeight: '700' },
 
-  // --- Chat styles ---
+  // 챗봇
   bubbleRow: { width: '100%', marginVertical: 4, flexDirection: 'row' },
   bubbleRowLeft: { justifyContent: 'flex-start' },
   bubbleRowRight: { justifyContent: 'flex-end' },
-  bubble: { maxWidth: '80%', paddingVertical: 10, paddingHorizontal: 12, borderRadius: 14 },
-  bubbleBot: { backgroundColor: 'rgba(255,255,255,0.10)', borderBottomLeftRadius: 6 },
-  bubbleUser: { backgroundColor: '#4C82FB', borderBottomRightRadius: 6 },
-  bubbleText: { color: '#fff', lineHeight: 20 },
+  bubble: { maxWidth: '80%', paddingVertical: 10, paddingHorizontal: 12, borderRadius: 14, borderWidth: 1 },
+  bubbleBot: { backgroundColor: '#FFFFFF', borderColor: '#E6EAF4', borderBottomLeftRadius: 6 },
+  bubbleUser: { backgroundColor: '#DDE6FF', borderColor: '#D0DBFF', borderBottomRightRadius: 6 },
+  bubbleText: { color: '#1F2A44', lineHeight: 20 }, // 두 버블 모두 가독성 좋은 진한 텍스트
 
   chatInputRow: {
     position: 'absolute',
@@ -649,11 +732,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
-  chatInput: { flex: 1, height: 44, borderRadius: 14, paddingHorizontal: 12, backgroundColor: 'rgba(255,255,255,0.08)', color: '#fff' },
-  chatSendBtn: { height: 44, paddingHorizontal: 14, borderRadius: 14, backgroundColor: '#4C82FB', alignItems: 'center', justifyContent: 'center' },
-  chatSendText: { color: '#fff', fontWeight: '800' },
+  chatInput: {
+    flex: 1,
+    height: 44,
+    borderRadius: 14,
+    paddingHorizontal: 12,
+    backgroundColor: '#FFFFFF',
+    color: '#1F2A44',
+    borderWidth: 1,
+    borderColor: '#E6EAF4',
+  },
+  chatSendBtn: { height: 44, paddingHorizontal: 14, borderRadius: 14, backgroundColor: '#6C8EF5', alignItems: 'center', justifyContent: 'center' },
+  chatSendText: { color: '#FFFFFF', fontWeight: '800' },
 
   quickRow: { position: 'absolute', left: 0, right: 0, bottom: 60, paddingHorizontal: 12, flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  quickChip: { paddingVertical: 6, paddingHorizontal: 10, borderRadius: 999, backgroundColor: 'rgba(255,255,255,0.12)' },
-  quickChipText: { color: '#fff', fontSize: 12, fontWeight: '700' },
+  quickChip: { paddingVertical: 6, paddingHorizontal: 10, borderRadius: 999, backgroundColor: '#EEF2FF', borderWidth: 1, borderColor: '#DDE6FF' },
+  quickChipText: { color: '#2A3B5F', fontSize: 12, fontWeight: '700' },
 });
